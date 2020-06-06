@@ -1,4 +1,4 @@
-const u8 gSpeciesNames[][11] = {
+const u8 gSpeciesNames[][13] = {
     _("??????????"),
     _("BULBASAUR"),
     _("IVYSAUR"),

@@ -88,24 +88,31 @@ union PokemonSubstruct
 struct BoxPokemon
 {
     u32 personality;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     u32 otId;
-    u8 nickname[POKEMON_NAME_LENGTH];
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    u8 nickname[POKEMON_NAME_LENGTH]; //this is 12 bytes now, so it is three groups of words (4 bytes)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     u8 language;
     u8 isBadEgg:1;
     u8 hasSpecies:1;
     u8 isEgg:1;
     u8 unused:5;
-    u8 otName[OT_NAME_LENGTH];
-    u8 markings;
+//------------------------------------------------------------------------
     u16 checksum;
-    u16 unknown;
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    u8 otName[PLAYER_NAME_LENGTH]; //7 bytes, so there is one word (4 bytes) in here with 3 bytes left over
+    u8 markings;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     union
     {
         u32 raw[12];
         union PokemonSubstruct substructs[4];
     } secure;
 };
+
+//----- is halfword boundary (2 bytes)
+//~~~~~ is word boundary (4 bytes)
 
 struct Pokemon
 {

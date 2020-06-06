@@ -4,6 +4,8 @@
 #include "global.h"
 
 #define CHAR_SPACE          0x00
+#define CHAR_MALE_SMALL		0x01
+#define CHAR_FEMALE_SMALL	0x02
 #define CHAR_0              0xA1
 #define CHAR_1              0xA2
 #define CHAR_2              0xA3
