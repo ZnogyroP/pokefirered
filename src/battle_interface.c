@@ -1549,10 +1549,7 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
     {
         TextIntoHealthboxObject((void*)(OBJ_VRAM0 + 0x20 + spriteTileNum), windowTileData, 7);
         ptr = (void*)(OBJ_VRAM0);
-        if (!IsDoubleBattle())
-            ptr += spriteTileNum + 0x400;
-        else
-            ptr += spriteTileNum + 0x400;
+        ptr += spriteTileNum + 0x400;
         TextIntoHealthboxObject(ptr, windowTileData + 0xE0, 1);
     }
 
