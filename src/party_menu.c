@@ -1359,7 +1359,7 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
     switch (movementDir)
     {
     case MENU_DIR_UP:
-        if (*slotPtr == 0)
+        if (*slotPtr == 0 || *slotPtr == 1)
         {
             *slotPtr = PARTY_SIZE + 1;
         }
@@ -1376,7 +1376,7 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
         }
         else
         {
-            --*slotPtr;
+            *slotPtr = *slotPtr - 2;
         }
         break;
     case MENU_DIR_DOWN:
@@ -1384,9 +1384,13 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
         {
             *slotPtr = 0;
         }
+        else if (*slotPtr == PARTY_SIZE)
+        {
+            *slotPtr = PARTY_SIZE + 1;
+        }
         else
         {
-            if (*slotPtr == gPlayerPartyCount - 1)
+            if (*slotPtr == gPlayerPartyCount - 1 || *slotPtr == gPlayerPartyCount - 2)
             {
                 if (sPartyMenuInternal->chooseHalf)
                     *slotPtr = PARTY_SIZE;
@@ -1395,24 +1399,46 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
             }
             else
             {
-                ++*slotPtr;
+                *slotPtr = *slotPtr + 2;
             }
         }
         break;
     case MENU_DIR_RIGHT:
-        if (gPlayerPartyCount != 1 && *slotPtr == 0)
+        if (*slotPtr == PARTY_SIZE + 1)
         {
-            if (sPartyMenuInternal->lastSelectedSlot == 0)
-                *slotPtr = 1;
-            else
-                *slotPtr = sPartyMenuInternal->lastSelectedSlot;
-        }
-        break;
-    case MENU_DIR_LEFT:
-        if (*slotPtr != 0 && *slotPtr != PARTY_SIZE && *slotPtr != PARTY_SIZE + 1)
-        {
-            sPartyMenuInternal->lastSelectedSlot = *slotPtr;
             *slotPtr = 0;
+        }
+		else if (*slotPtr == gPlayerPartyCount - 1)
+        {
+            if (sPartyMenuInternal->chooseHalf)
+                *slotPtr = PARTY_SIZE;
+            else
+                *slotPtr = PARTY_SIZE + 1;
+        }
+        else
+        {
+            *slotPtr = *slotPtr + 1;
+        }
+		break;
+    case MENU_DIR_LEFT:
+        if (*slotPtr == 0)
+        {
++            *slotPtr = PARTY_SIZE + 1;
+        }
+        else if (*slotPtr == PARTY_SIZE)
+        {
+            *slotPtr = gPlayerPartyCount - 1;
+        }
+        else if (*slotPtr == PARTY_SIZE + 1)
+        {
+            if (sPartyMenuInternal->chooseHalf)
+                *slotPtr = PARTY_SIZE;
+            else
+                *slotPtr = gPlayerPartyCount - 1;
+        }
+        else
+        {
+            *slotPtr = *slotPtr - 1;
         }
         break;
     }
@@ -1427,42 +1453,38 @@ static void UpdatePartySelectionDoubleLayout(s8 *slotPtr, s8 movementDir)
     switch (movementDir)
     {
     case MENU_DIR_UP:
-        if (*slotPtr == 0)
+        if (*slotPtr == 0 || *slotPtr == 1)
         {
             *slotPtr = PARTY_SIZE + 1;
-            break;
         }
         else if (*slotPtr == PARTY_SIZE)
         {
             *slotPtr = gPlayerPartyCount - 1;
-            break;
         }
         else if (*slotPtr == PARTY_SIZE + 1)
         {
             if (sPartyMenuInternal->chooseHalf)
-            {
                 *slotPtr = PARTY_SIZE;
-                break;
-            }
-            --*slotPtr;
-        }
-        newSlot = GetNewSlotDoubleLayout(*slotPtr, newSlot);
-        if (newSlot != -1)
-            *slotPtr = newSlot;
-        break;
-    case MENU_DIR_DOWN:
-        if (*slotPtr == PARTY_SIZE)
-        {
-            *slotPtr = PARTY_SIZE + 1;
-        }
-        else if (*slotPtr == PARTY_SIZE + 1)
-        {
-            *slotPtr = 0;
+            else
+                *slotPtr = gPlayerPartyCount - 1;
         }
         else
         {
-            newSlot = GetNewSlotDoubleLayout(*slotPtr, MENU_DIR_DOWN);
-            if (newSlot == -1)
+            *slotPtr = *slotPtr - 2;
+        }
+        break;
+    case MENU_DIR_DOWN:
+        if (*slotPtr == PARTY_SIZE + 1)
+        {
+            *slotPtr = 0;
+        }
+        else if (*slotPtr == PARTY_SIZE)
+        {
+            *slotPtr = PARTY_SIZE + 1;
+        }
+        else
+        {
+            if (*slotPtr == gPlayerPartyCount - 1 || *slotPtr == gPlayerPartyCount - 2)
             {
                 if (sPartyMenuInternal->chooseHalf)
                     *slotPtr = PARTY_SIZE;
@@ -1471,46 +1493,46 @@ static void UpdatePartySelectionDoubleLayout(s8 *slotPtr, s8 movementDir)
             }
             else
             {
-                *slotPtr = newSlot;
+                *slotPtr = *slotPtr + 2;
             }
         }
         break;
     case MENU_DIR_RIGHT:
-        if (*slotPtr == 0)
+        if (*slotPtr == PARTY_SIZE + 1)
         {
-            if (sPartyMenuInternal->lastSelectedSlot == 3)
-            {
-                if (GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) != SPECIES_NONE)
-                    *slotPtr = 3;
-            }
-            else if (GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) != SPECIES_NONE)
-            {
-                *slotPtr = 2;
-            }
-        }
-        else if (*slotPtr == 1)
-        {
-            if (sPartyMenuInternal->lastSelectedSlot == 5)
-            {
-                if (GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) != SPECIES_NONE)
-                    *slotPtr = 5;
-            }
-            else if (GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) != SPECIES_NONE)
-            {
-                *slotPtr = 4;
-            }
-        }
-        break;
-    case MENU_DIR_LEFT:
-        if (*slotPtr == 2 || *slotPtr == 3)
-        {
-            sPartyMenuInternal->lastSelectedSlot = *slotPtr;
             *slotPtr = 0;
         }
-        else if (*slotPtr == 4 || *slotPtr == 5)
+		else if (*slotPtr == gPlayerPartyCount - 1)
         {
-            sPartyMenuInternal->lastSelectedSlot = *slotPtr;
-            *slotPtr = 1;
+            if (sPartyMenuInternal->chooseHalf)
+                *slotPtr = PARTY_SIZE;
+            else
+                *slotPtr = PARTY_SIZE + 1;
+        }
+        else
+        {
+            *slotPtr = *slotPtr + 1;
+        }
+		break;
+    case MENU_DIR_LEFT:
+        if (*slotPtr == 0)
+        {
++            *slotPtr = PARTY_SIZE + 1;
+        }
+        else if (*slotPtr == PARTY_SIZE)
+        {
+            *slotPtr = gPlayerPartyCount - 1;
+        }
+        else if (*slotPtr == PARTY_SIZE + 1)
+        {
+            if (sPartyMenuInternal->chooseHalf)
+                *slotPtr = PARTY_SIZE;
+            else
+                *slotPtr = gPlayerPartyCount - 1;
+        }
+        else
+        {
+            *slotPtr = *slotPtr - 1;
         }
         break;
     }
@@ -2210,31 +2232,31 @@ static void BlitBitmapToPartyWindow_LeftColumn(u8 windowId, u8 x, u8 y, u8 width
 {
     if (width == 0 && height == 0)
     {
-        width = 10;
-        height = 7;
+        width = 14;
+        height = 5;
     }
     if (!isEgg)
-        BlitBitmapToPartyWindow(windowId, sMainSlotTileNums, 10, x, y, width, height);
+        BlitBitmapToPartyWindow(windowId, sMainSlotTileNums, 14, x, y, width, height);
     else
-        BlitBitmapToPartyWindow(windowId, sMainSlotTileNums_Egg, 10, x, y, width, height);
+        BlitBitmapToPartyWindow(windowId, sMainSlotTileNums_Egg, 14, x, y, width, height);
 }
 
 static void BlitBitmapToPartyWindow_RightColumn(u8 windowId, u8 x, u8 y, u8 width, u8 height, u8 isEgg)
 {
     if (width == 0 && height == 0)
     {
-        width = 18;
-        height = 3;
+        width = 14;
+        height = 5;
     }
     if (!isEgg)
-        BlitBitmapToPartyWindow(windowId, sOtherSlotsTileNums, 18, x, y, width, height);
+        BlitBitmapToPartyWindow(windowId, sOtherSlotsTileNums, 14, x, y, width, height);
     else
-        BlitBitmapToPartyWindow(windowId, sOtherSlotsTileNums_Egg, 18, x, y, width, height);
+        BlitBitmapToPartyWindow(windowId, sOtherSlotsTileNums_Egg, 14, x, y, width, height);
 }
 
 static void DrawEmptySlot(u8 windowId)
 {
-    BlitBitmapToPartyWindow(windowId, sEmptySlotTileNums, 18, 0, 0, 18, 3);
+    BlitBitmapToPartyWindow(windowId, sEmptySlotTileNums, 14, 0, 0, 14, 5);
 }
 
 #define LOAD_PARTY_BOX_PAL(paletteIds, paletteOffsets)                                    \
@@ -3177,7 +3199,7 @@ static void SwitchSelectedMons(u8 taskId)
         tSlot1Width = GetWindowAttribute(windowIds[0], WINDOW_WIDTH);
         tSlot1Height = GetWindowAttribute(windowIds[0], WINDOW_HEIGHT);
         tSlot1Offset = 0;
-        if (tSlot1Width == 10)
+        if (gPartyMenu.slotId == 0 || gPartyMenu.slotId == 2 || gPartyMenu.slotId == 4)
             tSlot1SlideDir = -1;
         else
             tSlot1SlideDir = 1;
@@ -3187,7 +3209,7 @@ static void SwitchSelectedMons(u8 taskId)
         tSlot2Width = GetWindowAttribute(windowIds[1], WINDOW_WIDTH);
         tSlot2Height = GetWindowAttribute(windowIds[1], WINDOW_HEIGHT);
         tSlot2Offset = 0;
-        if (tSlot2Width == 10)
+        if (gPartyMenu.slotId2 == 0 || gPartyMenu.slotId2 == 2 || gPartyMenu.slotId2 == 4)
             tSlot2SlideDir = -1;
         else
             tSlot2SlideDir = 1;
@@ -3279,12 +3301,37 @@ static void Task_SlideSelectedSlotsOffscreen(u8 taskId)
 
     SlidePartyMenuBoxOneStep(taskId);
     SlidePartyMenuBoxSpritesOneStep(taskId);
-    tSlot1Offset += tSlot1SlideDir;
-    tSlot2Offset += tSlot2SlideDir;
-    slidingSlotPositions[0] = tSlot1Left + tSlot1Offset;
-    slidingSlotPositions[1] = tSlot2Left + tSlot2Offset;
+	if (tSlot1SlideDir == -1 && tSlot2SlideDir == -1)
+	{
+		tSlot1Offset += tSlot1SlideDir;
+		tSlot2Offset += tSlot2SlideDir;
+		slidingSlotPositions[0] = tSlot1Left - tSlot1Offset;
+		slidingSlotPositions[1] = tSlot2Left - tSlot2Offset;
+	}
+	else
+	{
+		tSlot1Offset += tSlot1SlideDir;
+		tSlot2Offset += tSlot2SlideDir;
+		slidingSlotPositions[0] = tSlot1Left + tSlot1Offset;
+		slidingSlotPositions[1] = tSlot2Left + tSlot2Offset;
+	}
     // Both slots have slid offscreen
-    if (slidingSlotPositions[0] > 33 && slidingSlotPositions[1] > 33)
+    if (tSlot1SlideDir == -1 && tSlot2SlideDir == -1 && slidingSlotPositions[0] > 22 && slidingSlotPositions[1] > 22)
+    {
+        tSlot1SlideDir *= -1;
+        tSlot2SlideDir *= -1;
+        SwitchPartyMon();
+        DisplayPartyPokemonData(gPartyMenu.slotId);
+        DisplayPartyPokemonData(gPartyMenu.slotId2);
+        PutWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId].windowId);
+        PutWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId2].windowId);
+        CopyToBufferFromBgTilemap(0, sSlot1TilemapBuffer, tSlot1Left, tSlot1Top, tSlot1Width, tSlot1Height);
+        CopyToBufferFromBgTilemap(0, sSlot2TilemapBuffer, tSlot2Left, tSlot2Top, tSlot2Width, tSlot2Height);
+        ClearWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId].windowId);
+        ClearWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId2].windowId);
+        gTasks[taskId].func = Task_SlideSelectedSlotsOnscreen;
+    }
+    else if (slidingSlotPositions[0] > 33 && slidingSlotPositions[1] > 33)
     {
         tSlot1SlideDir *= -1;
         tSlot2SlideDir *= -1;
