@@ -302,7 +302,7 @@ static const struct Subsprite gUnknown_8260390[] = {
 static const struct Subsprite gUnknown_8260398[] = {
     { 240, 0, SPRITE_SHAPE(32x8), SPRITE_SIZE(32x8), 0x0000, 1 },
     { 16, 0, SPRITE_SHAPE(32x8), SPRITE_SIZE(32x8), 0x0004, 1 },
-    { 224, 0, SPRITE_SHAPE(8x8), SPRITE_SIZE(8x8), 0x0008, 1 }
+    { 216, 0, SPRITE_SHAPE(8x8), SPRITE_SIZE(8x8), 0x0008, 1 }
 };
 
 static const struct SubspriteTable gUnknown_82603A4[] = {

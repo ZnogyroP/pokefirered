@@ -694,7 +694,7 @@ static const struct BgTemplate sUnknown_8463EFC[] =
 static const struct WindowTemplate sUnknown_8463F0C[] =
 {
     {
-        .bg = 1,
+        .bg = 1,				// Controls Pokémon Skills etc.
         .tilemapLeft = 0,
         .tilemapTop = 0,
         .width = 13,
@@ -711,12 +711,12 @@ static const struct WindowTemplate sUnknown_8463F0C[] =
         .paletteNum = 7,
         .baseBlock = 0x0272
     },
-    {
+    {							// This one controls the Pokémon's level and name
         .bg = 1,
         .tilemapLeft = 0,
         .tilemapTop = 2,
         .width = 15,
-        .height = 2,
+        .height = 4,
         .paletteNum = 7,
         .baseBlock = 0x0288
     }
@@ -747,7 +747,7 @@ static const struct WindowTemplate sUnknown_8463F24[] =
         .tilemapLeft = 0,
         .tilemapTop = 2,
         .width = 15,
-        .height = 2,
+        .height = 4,
         .paletteNum = 7,
         .baseBlock = 0x0288
     },
@@ -1330,9 +1330,9 @@ static void sub_8134E84(u8 taskId)
         }
 
         FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 30, 2);
-        FillBgTilemapBufferRect_Palette0(1, 0, 0, 2, 15, 2);
+        FillBgTilemapBufferRect_Palette0(1, 0, 0, 2, 15, 4);
         FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 30, 2);
-        FillBgTilemapBufferRect_Palette0(2, 0, 0, 2, 15, 2);
+        FillBgTilemapBufferRect_Palette0(2, 0, 0, 2, 15, 4);
         break;
     case 2:
         sub_8135638();
@@ -1440,9 +1440,9 @@ static void sub_81351A0(u8 taskId)
         }
 
         FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 30, 2);
-        FillBgTilemapBufferRect_Palette0(1, 0, 0, 2, 15, 2);
+        FillBgTilemapBufferRect_Palette0(1, 0, 0, 2, 15, 4);
         FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 30, 2);
-        FillBgTilemapBufferRect_Palette0(2, 0, 0, 2, 15, 2);
+        FillBgTilemapBufferRect_Palette0(2, 0, 0, 2, 15, 4);
         break;
     case 2:
         sub_8135AA4();
@@ -1982,7 +1982,7 @@ static void sub_8135C34(void)
     sMonSummaryScreen->unk3274++;
 }
 
-static u8 sub_8135F20(void)
+static u8 sub_8135F20(void) // Controls the purple box around the mon, sets to blue when it's shiny
 {
     switch (sMonSummaryScreen->unk3278)
     {
@@ -2413,10 +2413,13 @@ static void sub_8136E50(const u8 * msg)
 
         AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[2], 2, 40, 2, sUnknown_8463FA4[1], 0xff, sMonSummaryScreen->summary.unk3034);
 
-        if (GetMonGender(&sMonSummaryScreen->currentMon) == MON_FEMALE)
-            AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[2], 2, 105, 2, sUnknown_8463FA4[3], 0, sMonSummaryScreen->summary.unk3084);
-        else
-            AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[2], 2, 105, 2, sUnknown_8463FA4[2], 0, sMonSummaryScreen->summary.unk3084);
+        if (sMonSummaryScreen->curPageIndex != PSS_PAGE_MOVES_INFO)
+		{    
+			if (GetMonGender(&sMonSummaryScreen->currentMon) == MON_FEMALE) // Controls the gender symbol.
+				AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[2], 2, 103, 17, sUnknown_8463FA4[3], 0, sMonSummaryScreen->summary.unk3084);
+			else
+				AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[2], 2, 103, 17, sUnknown_8463FA4[2], 0, sMonSummaryScreen->summary.unk3084);
+		}
     }
 
     PutWindowTilemap(sMonSummaryScreen->unk3000[2]);
@@ -2450,9 +2453,9 @@ static void sub_8136FB0(void)
     if (!sMonSummaryScreen->isEgg)
     {
         AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47 + sUnknown_203B144->unk00, 5, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk3064);
-        AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47, 49, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk3040);
-        AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47, 64, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk306C);
-        AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47, 79, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk3074);
+        AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47, 49, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk3040); // Controls OT text
+        AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47, 64, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk306C); // Controls IdNo text
+        AddTextPrinterParameterized3(sMonSummaryScreen->unk3000[3], 2, 47, 79, sUnknown_8463FA4[0], TEXT_SPEED_FF, sMonSummaryScreen->summary.unk3074); // Controls Item text
     }
     else
     {
@@ -4341,7 +4344,7 @@ static void sub_813A35C(void)
     sub_813A3B8(0);
 }
 
-static void sub_813A3B8(u8 invisible)
+static void sub_813A3B8(u8 invisible) // Controls the presence and position of the current status + fainting + active Pokérus.
 {
     if (sMonSummaryScreen->unk326C == AILMENT_NONE || sMonSummaryScreen->isEgg)
         sUnknown_203B158->sprite->invisible = TRUE;
@@ -4709,7 +4712,7 @@ static void sub_813AC8C(void)
     FREE_AND_SET_NULL_IF_SET(sUnknown_203B164);
 }
 
-static void sub_813ACB4(void)
+static void sub_813ACB4(void) // Loads the cured Pokérus icon when switching.
 {
     if (!CheckPartyPokerus(&sMonSummaryScreen->currentMon, 0)
         && CheckPartyHasHadPokerus(&sMonSummaryScreen->currentMon, 0))
@@ -4718,7 +4721,7 @@ static void sub_813ACB4(void)
         sub_813ACF8(1);
 }
 
-static void sub_813ACF8(u8 invisible)
+static void sub_813ACF8(u8 invisible) // Controls the presence of the cured Pokérus icon.
 {
     if (!CheckPartyPokerus(&sMonSummaryScreen->currentMon, 0)
         && CheckPartyHasHadPokerus(&sMonSummaryScreen->currentMon, 0))
@@ -4773,7 +4776,7 @@ static void sub_813ADA8(u16 tileTag, u16 palTag)
 
         LoadSpriteSheet(&sheet);
         LoadSpritePalette(&palette);
-        spriteId = CreateSprite(&template, 106, 40, 0);
+        spriteId = CreateSprite(&template, 16, 88, 0);
         sUnknown_203B168->sprite = &gSprites[spriteId];
         sUnknown_203B168->unk04 = tileTag;
         sUnknown_203B168->unk06 = palTag;
@@ -4793,7 +4796,7 @@ static void sub_813AE88(void)
     FREE_AND_SET_NULL_IF_SET(sUnknown_203B168);
 }
 
-static void sub_813AEB0(u8 invisible)
+static void sub_813AEB0(u8 invisible) // Controls the presence of the shiny star.
 {
     if (IsMonShiny(&sMonSummaryScreen->currentMon) == TRUE
         && !sMonSummaryScreen->isEgg)
@@ -4808,12 +4811,12 @@ static void sub_813AEB0(u8 invisible)
     }
     else
     {
-        sUnknown_203B168->sprite->pos1.x = 106;
-        sUnknown_203B168->sprite->pos1.y = 40;
+        sUnknown_203B168->sprite->pos1.x = 16;
+        sUnknown_203B168->sprite->pos1.y = 88;
     }
 }
 
-static void sub_813AF50(void)
+static void sub_813AF50(void) // Runs the routine to set the shiny star when switching Pokémon.
 {
     if (IsMonShiny(&sMonSummaryScreen->currentMon) == TRUE && !sMonSummaryScreen->isEgg)
         sub_813AEB0(0);
