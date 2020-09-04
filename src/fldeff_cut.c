@@ -136,7 +136,11 @@ bool8 SetUpFieldMove_Cut(void)
     else
     {
         // FIXME: this fakematch
-        register s32 neg1 asm("r8");
+        #ifndef NONMATCHING
+            register s32 neg1 asm("r8");
+        #else
+            s32 neg1;
+        #endif
         struct MapPosition *pos;
         PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
 
@@ -204,11 +208,15 @@ bool8 FldEff_CutGrass(void)
     u8 i, j;
     s16 x, y;
     // FIXME: this fakematch
-    register s32 neg1 asm("r9");
+    #ifndef NONMATCHING
+        register s32 neg1 asm("r9");
+    #else
+        s32 neg1;
+    #endif
     struct MapPosition *pos;
 
     i = 0;
-    PlaySE(SE_W015);
+    PlaySE(SE_M_CUT);
     PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
 
     for (i = 0, pos = &gPlayerFacingPosition, neg1 = 0xFFFF; i < 3; i++)
@@ -293,7 +301,7 @@ static void SpriteCallback_CutGrass_Cleanup(struct Sprite * sprite)
 
 static void FieldMoveCallback_CutTree(void)
 {
-    PlaySE(SE_W015);
+    PlaySE(SE_M_CUT);
     FieldEffectActiveListRemove(FLDEFF_USE_CUT_ON_TREE);
     EnableBothScriptContexts();
 }

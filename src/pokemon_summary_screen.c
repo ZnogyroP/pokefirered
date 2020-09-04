@@ -3841,7 +3841,7 @@ static void sub_81393D4(u8 taskId)
             }
             else
             {
-                PlaySE(SE_HAZURE);
+                PlaySE(SE_FAILURE);
                 sMonSummaryScreen->unk3288 = 5;
             }
         }
