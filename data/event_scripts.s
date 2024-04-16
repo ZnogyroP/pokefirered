@@ -1360,3 +1360,51 @@ Text_TestMsg::
 	.include "data/text/save.inc"
 	.include "data/text/new_game_intro.inc"
 	.include "data/text/pokedude.inc"
+
+	.include "data/maps/MapPracticeForest/scripts.inc"
+	.include "data/maps/MapPracticeForest/text.inc"
+
+	.include "data/maps/MapPracticePlayerHouse/scripts.inc"
+	.include "data/maps/MapPracticePlayerHouse/text.inc"
+
+	.include "data/maps/MapPracticeLab/scripts.inc"
+	.include "data/maps/MapPracticeLab/text.inc"
+
+	.include "data/maps/MapPracticeRoute1/scripts.inc"
+	.include "data/maps/MapPracticeRoute1/text.inc"
+
+	.include "data/maps/MapPracticeStartingTown/scripts.inc"
+	.include "data/maps/MapPracticeStartingTown/text.inc"
+
+	.include "data/maps/MapPracticeCaveRoute/scripts.inc"
+	.include "data/maps/MapPracticeCaveRoute/text.inc"
+
+	.include "data/maps/MapPracticeEarlyCaveFloor1/scripts.inc"
+	.include "data/maps/MapPracticeEarlyCaveFloor1/text.inc"
+
+	.include "data/maps/NewMap1/scripts.inc"
+	.include "data/maps/NewMap1/text.inc"
+
+	.include "data/maps/MapPracticeEarlyCaveFloor1/scripts.inc"
+	.include "data/maps/MapPracticeEarlyCaveFloor1/text.inc"
+
+	.include "data/maps/MapPracticeEarlyCaveFloor2/scripts.inc"
+	.include "data/maps/MapPracticeEarlyCaveFloor2/text.inc"
+
+	.include "data/maps/MapPracticeSmallEarlyTown/scripts.inc"
+	.include "data/maps/MapPracticeSmallEarlyTown/text.inc"
+
+	.include "data/maps/MapPracticeRoute2/scripts.inc"
+	.include "data/maps/MapPracticeRoute2/text.inc"
+
+	.include "data/maps/MapPracticeRoute3/scripts.inc"
+	.include "data/maps/MapPracticeRoute3/text.inc"
+
+	.include "data/maps/MapPracticeGym1City/scripts.inc"
+	.include "data/maps/MapPracticeGym1City/text.inc"
+
+	.include "data/maps/MapPracticeBeachRoute/scripts.inc"
+	.include "data/maps/MapPracticeBeachRoute/text.inc"
+
+	.include "data/maps/MapPracticeRoute4/scripts.inc"
+	.include "data/maps/MapPracticeRoute4/text.inc"

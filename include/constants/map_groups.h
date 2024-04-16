@@ -136,6 +136,9 @@
 #define MAP_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM (120 | (1 << 8))
 #define MAP_SIX_ISLAND_PATTERN_BUSH              (121 | (1 << 8))
 #define MAP_SIX_ISLAND_ALTERING_CAVE             (122 | (1 << 8))
+#define MAP_MAP_PRACTICE_FOREST                  (123 | (1 << 8))
+#define MAP_MAP_PRACTICE_EARLY_CAVE_FLOOR1       (124 | (1 << 8))
+#define MAP_MAP_PRACTICE_EARLY_CAVE_FLOOR2       (125 | (1 << 8))
 
 // gMapGroup_SpecialArea
 #define MAP_NAVEL_ROCK_EXTERIOR                       (0 | (2 << 8))
@@ -266,12 +269,23 @@
 #define MAP_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE (63 | (3 << 8))
 #define MAP_SEVEN_ISLAND_SEVAULT_CANYON          (64 | (3 << 8))
 #define MAP_SEVEN_ISLAND_TANOBY_RUINS            (65 | (3 << 8))
+#define MAP_MAP_PRACTICE_ROUTE1                  (66 | (3 << 8))
+#define MAP_MAP_PRACTICE_STARTING_TOWN           (67 | (3 << 8))
+#define MAP_MAP_PRACTICE_CAVE_ROUTE              (68 | (3 << 8))
+#define MAP_MAP_PRACTICE_SMALL_EARLY_TOWN        (69 | (3 << 8))
+#define MAP_MAP_PRACTICE_ROUTE2                  (70 | (3 << 8))
+#define MAP_MAP_PRACTICE_ROUTE3                  (71 | (3 << 8))
+#define MAP_MAP_PRACTICE_GYM1CITY                (72 | (3 << 8))
+#define MAP_MAP_PRACTICE_BEACH_ROUTE             (73 | (3 << 8))
+#define MAP_MAP_PRACTICE_ROUTE4                  (74 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_2F   (1 | (4 << 8))
 #define MAP_PALLET_TOWN_RIVALS_HOUSE       (2 | (4 << 8))
 #define MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB (3 | (4 << 8))
+#define MAP_MAP_PRACTICE_PLAYER_HOUSE      (4 | (4 << 8))
+#define MAP_MAP_PRACTICE_LAB               (5 | (4 << 8))
 
 // gMapGroup_IndoorViridian
 #define MAP_VIRIDIAN_CITY_HOUSE             (0 | (5 << 8))
